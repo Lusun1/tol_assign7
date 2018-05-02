@@ -46,10 +46,12 @@
     }
   
 var questionarray = new Array();
+var reasonarray = new Array();
 var temp;
 var num = 0;
     function getQuestion() {
       questionarray = [];
+      reasonarray = [];
       database.collection("questions")
         .get()
         .then(function (querySnapshot) {
@@ -57,6 +59,7 @@ var num = 0;
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data().content);
             questionarray.push(doc.data().content);
+            reasonarray.push(doc.data().reason);
           });
         })
         .catch(function (error) {
@@ -81,8 +84,11 @@ var num = 0;
         content: temp,
         reason: answerReason
       });
-      var answerobj=document.getElementById("peer-answer");  
-      answerobj.innerHTML="We are sorry that learners are not big enough to evlauate your answer"; 
+      }
+    function peerAnswer(){  
+      var peerreason = reasonarray[num];
+      var reasonobj=document.getElementById('evaluate-answer');  
+      reasonobj.innerHTML=peerreason; 
     }
 
   </script>
@@ -194,9 +200,6 @@ var num = 0;
       <div class="row justify-content-center">
         <button type="button" class="btn btn-dark" id="ask-submit" onclick="submitAnswer()">Submit to see peer's answer</button>
       </div>
-      <div class="input-group mb-3">
-        <textarea class="form-control" aria-label="With textarea" id="peer-answer" style="resize:none" disabled></textarea>
-      </div>
     </div>
   </div>
 
@@ -206,10 +209,10 @@ var num = 0;
         <div class="col-12 col-md-8">
           <label for="basic-url">Please contribute to peer's answer. </label>
           <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-dark" id="answer-click">Click to evaluate peer's question</button>
+            <button type="button" class="btn btn-outline-dark" id="peer-answer" onclick="peerAnswer()">Click to evaluate peer's answer</button>
           </div>
           <div class="input-group mb-3">
-            <textarea class="form-control" aria-label="With textarea" id="evaluate-question" style="resize:none" disabled></textarea>
+            <textarea class="form-control" aria-label="With textarea" id="evaluate-answer" style="resize:none" disabled></textarea>
           </div>
           <label for="basic-url">Are you agree with his answer?</label>
           <div class="input-group mb-3">
