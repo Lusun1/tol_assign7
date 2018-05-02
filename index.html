@@ -60,7 +60,8 @@
           
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player" style="position:relative; top: 0px; left: 250px;"></div>
-
+    </script>
+      
     <div class="page-0">
     <div class="container">
       <div class="row justify-content-center">
@@ -77,6 +78,74 @@
         </div>
         <div class="row justify-content-center">
         <button type="button" class="btn btn-dark" id ="ask-submit">Submit</button>
+        </div>
+      </div>       
+      </div>
+
+      <div class="page-1">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          <label for="basic-url">Here is the time to test yourself. </label>
+            <div class="input-group mb-3">
+            <button type="button" class="btn btn-outline-dark" id = "answer-click">Click to see the question</button>
+            </div>
+             <div class="input-group mb-3">  
+            <textarea class="form-control" aria-label="With textarea" id = "answer-question" style = "resize:none" disabled></textarea>
+            </div>
+            <label for="basic-url">Select your answer</label>
+            <div class="input-group mb-3">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> No
+                  </label>
+                </div>
+            </div>
+            <label for="basic-url">Write down your reason</label>
+            <div class="input-group mb-3">
+              <input style="width:400px;" type="text" class="form-control" id="answer-reason" aria-describedby="basic-addon3">
+            </div>            
+          </div>
+        </div>
+        <div class="row justify-content-center">
+        <button type="button" class="btn btn-dark" id ="ask-submit">Submit to see peer's answer</button>
+        </div>
+      </div>       
+      </div>
+
+    <div class="page-2">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          <label for="basic-url">Please contribute to peer's answer. </label>
+            <div class="input-group mb-3">
+            <button type="button" class="btn btn-outline-dark" id = "answer-click">Click to evaluate peer's question</button>
+            </div>
+             <div class="input-group mb-3">  
+            <textarea class="form-control" aria-label="With textarea" id = "answer-question" style = "resize:none" disabled></textarea>
+            </div>
+            <label for="basic-url">Are you agree with his answer?</label>
+            <div class="input-group mb-3">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="agree" autocomplete="off" checked> Agree
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="disagree" autocomplete="off"> Disagree
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="not-know" autocomplete="off"> Don't know
+                  </label>
+                </div>
+            </div>
+            <label for="basic-url">Write down your reason on agree or disagree</label>
+            <div class="input-group mb-3">
+              <input style="width:400px;" type="text" class="form-control" id="answer-reason" aria-describedby="basic-addon3">
+            </div>            
+          </div>
         </div>
       </div>       
       </div>
