@@ -1,4 +1,4 @@
-/* Sticky footer styles
+/* Stickypper footer styles
 -------------------------------------------------- */
 html {
   position: relative;
@@ -55,3 +55,24 @@ code {
  z-index: 99; 
  }
  
+
+.tbll{
+    color:white;
+    font-size: 20px;
+    width:600px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.tbll td {
+    
+    border: 2px solid white;
+    background-color:#ADBAC7;
+}
+
+
+#box_show_question{
+    height: 200px;
+}
+

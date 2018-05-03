@@ -15,83 +15,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyB8R3MovR91MjVinPgW_8AM16LLbyXgCK4",
-      authDomain: "tolassignment7.firebaseapp.com",
-      databaseURL: "https://tolassignment7.firebaseio.com",
-      projectId: "tolassignment7",
-      storageBucket: "tolassignment7.appspot.com",
-      messagingSenderId: "692529149032"
-    };
-    firebase.initializeApp(config);
-
-    var database = firebase.firestore();
-    const settings = {/* your settings... */ timestampsInSnapshots: true };
-    database.settings(settings);
-
-    var askQuestion = "";
-    var askReason = "";
-    function submitQuestion() {
-      askQuestion = document.getElementById("ask-question").value;
-      askReason = document.getElementById("ask-self-reason").value;
-      console.log(askQuestion);
-      console.log(askReason);
-      const question = database.collection("questions").doc("question0");
-      question.set({
-        content: askQuestion,
-        reason: askReason
-      });
-    }
-  
-var questionarray = new Array();
-var reasonarray = new Array();
-var temp;
-var num = 0;
-    function getQuestion() {
-      questionarray = [];
-      reasonarray = [];
-      database.collection("questions")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data().content);
-            questionarray.push(doc.data().content);
-            reasonarray.push(doc.data().reason);
-          });
-        })
-        .catch(function (error) {
-          console.log("Error getting documents: ", error);
-        });
-      //console.log(questionarray);
-      console.log(questionarray.length);
-      // var t = setTimeout("temp = questionarray[Math.floor((Math.random() * (questionarray.length - 1)))]",1000);
-      // var s = setTimeout("console.log(temp)",1100);
-      var t = setTimeout("temp = questionarray[num]",1000);
-      var s = setTimeout("console.log(temp)",1100);
-      //temp = questionarray[Math.floor((Math.random() * (questionarray.length - 1)))];
-      var textobj=document.getElementById('answer-question');  
-      textobj.innerHTML=temp; 
-    }
-
-    function submitAnswer() {
-      answerReason = document.getElementById("answer-reason").value;
-      console.log(answerReason);
-      const answer = database.collection("questions").doc("answer0");
-      answer.set({
-        content: temp,
-        reason: answerReason
-      });
-      }
-    function peerAnswer(){  
-      var peerreason = reasonarray[num];
-      var reasonobj=document.getElementById('evaluate-answer');  
-      reasonobj.innerHTML=peerreason; 
-    }
-
-  </script>
+  <script src="tol.js"></script>
   <!-- Custom styles for this template -->
   <link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
@@ -133,7 +57,7 @@ var num = 0;
   <!-- Begin page content -->
   <main role="main" class="container">
     <h1 class="mt-5">Ask and answer interaction in online video lecture</h1>
-    <p class="lead">Prompts</p>
+<!--    <p class="lead">Prompts</p>-->
   </main>
 
   <!-- Bootstrap core JavaScript
@@ -152,19 +76,20 @@ var num = 0;
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-          <label for="basic-url">After you watch the video lecture, do you have some questions to ask? Your peers might give you a reasonable answers.
-            Please write down your answer below.</label>
+          <label for="basic-url">Please leave one question you want to ask. The question should be in a Yes/No form which other peers can easily answer by giving Yes/No and reasons.  </label>
           <div class="input-group mb-3">
             <input style="width:400px;" type="text" class="form-control" id="ask-question" aria-describedby="basic-addon3">
           </div>
+<!--
           <label for="basic-url">Do you have any idea or reason?</label>
           <div class="input-group mb-3">
             <input style="width:400px;" type="text" class="form-control" id="ask-self-reason" aria-describedby="basic-addon3">
           </div>
+-->
         </div>
       </div>
       <div class="row justify-content-center">
-        <button type="button" class="btn btn-dark" id="ask-submit" onclick="submitQuestion()">Submit</button>
+        <button type="button" class="btn btn-dark" id="submit_question" onclick="submitQuestion()">Submit</button>
       </div>
     </div>
   </div>
@@ -173,43 +98,45 @@ var num = 0;
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-          <label for="basic-url">Here is the time to test yourself. </label>
-          <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-dark" id="answer-click" onclick="getQuestion()">Click to see the question</button>
-          </div>
-          <div class="input-group mb-3">
-            <textarea class="form-control" aria-label="With textarea" id="answer-question" style="resize:none" disabled></textarea>
-          </div>
-          <label for="basic-url">Select your answer</label>
-          <div class="input-group mb-3">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary active">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" id="option2" autocomplete="off"> No
-              </label>
+          <label for="basic-url">Here is the time to test yourself. You will see one question from previous learners. Please provide Yes/No to the question and write down your reasons. </label>
+            <div class="input-group mb-3">
+            <button type="button" class="btn btn-outline-dark" id = "view_question" onclick="getQuestion() ">Click to see the question</button>
             </div>
-          </div>
-          <label for="basic-url">Write down your reason</label>
-          <div class="input-group mb-3">
-            <input style="width:400px;" type="text" class="form-control" id="answer-reason" aria-describedby="basic-addon3">
+             <div class="input-group mb-3">  
+            <textarea class="form-control" aria-label="With textarea" id = "box_show_question" style = "resize:none" disabled></textarea>
+            </div>
+            <label for="basic-url">Select your answer</label>
+            <div class="input-group mb-3">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked value = "Yes"> Yes
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off" value = "No"> No
+                  </label>
+                </div>
+            </div>
+            <label for="basic-url">Write down your reason</label>
+            <div class="input-group mb-3">
+              <input style="width:400px;" type="text" class="form-control" id="answer-reason" aria-describedby="basic-addon3">
+            </div>            
           </div>
         </div>
+        <div class="row justify-content-center" >
+        <div class="row justify-content-center" id = "answer">
+        <button type="button"  class = "btn btn-dark" id ="sbm_answer" onclick = "SubmitAnswer()">Submit your Answer</button>
+        </div>
+        </div>
+      </div>       
       </div>
-      <div class="row justify-content-center">
-        <button type="button" class="btn btn-dark" id="ask-submit" onclick="submitAnswer()">Submit to see peer's answer</button>
-      </div>
-    </div>
-  </div>
 
   <div class="page-2">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-          <label for="basic-url">Please contribute to peer's answer. </label>
+          <label for="basic-url">Please contribute to peer's answer.You will view one answer from previous learners. Please select your opinion towards the answer and wrtie down your reasons. </label>
           <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-dark" id="peer-answer" onclick="peerAnswer()">Click to evaluate peer's answer</button>
+            <button type="button" class="btn btn-outline-dark" id="clk_eval" onclick="peerAnswer()">Click to evaluate peer's answer</button>
           </div>
           <div class="input-group mb-3">
             <textarea class="form-control" aria-label="With textarea" id="evaluate-answer" style="resize:none" disabled></textarea>
@@ -233,7 +160,7 @@ var num = 0;
             <input style="width:400px;" type="text" class="form-control" id="evaluate-reason" aria-describedby="basic-addon3">
           </div>
           <div class="row justify-content-center">
-            <button type="button" class="btn btn-dark" id="ask-submit" onclick="submitEvaluation()">Submit your evaluation</button>
+            <button type="button" class="btn btn-dark" id="eval" onclick="submitEvaluation()">Submit your evaluation</button>
           </div>
         </div>
       </div>
